@@ -7,6 +7,15 @@ const { connect } = pkg;
  * @typedef {Object} Settings
  * @property {Number} color
  * @property {String} iconURL
+ * @property {Object[]} vehicleColors
+ * @property {string} vehicleColors.name
+ * @property {number} vehicleColors.value
+ * @property {Object[]} vehicles
+ * @property {string} vehicles.name
+ * @property {number} vehicles.value
+ * @property {Object} vehicleLimits
+ * @property {number} vehicleLimits.regular
+ * @property {number} vehicleLimits.special
  */
 
 /**
@@ -112,6 +121,12 @@ export class Bot extends Client {
     settings = {
         color: 0, // leave as 0, gets settings from index.js
         iconURL: '',
+        vehicleColors: [],
+        vehicles: [],
+        vehicleLimits: {
+            regular: 0,
+            special: 0
+        },
     };
 
     /**@type {Collection<string, CommandData>} */
