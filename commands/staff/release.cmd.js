@@ -58,7 +58,7 @@ export async function execute(interaction, client) {
   ];
 
   const msg = await interaction.channel?.send({
-    content: "@.everyone",
+    content: "@everyone",
     embeds: resp_embed,
   });
 

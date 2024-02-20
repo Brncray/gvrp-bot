@@ -49,7 +49,7 @@ export async function execute(interaction, client) {
 
 
   let sending = await interaction.editReply({
-    content: "@.everyone",
+    content: "@everyone",
     embeds: response,
   });
   await sending.react('👍');

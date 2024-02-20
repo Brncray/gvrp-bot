@@ -32,6 +32,7 @@ export async function execute(interaction, client) {
 
 
   await interaction.channel?.send({
+    content: "@everyone",
     embeds: response,
   })
   await interaction.deleteReply();
