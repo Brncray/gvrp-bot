@@ -16,6 +16,6 @@ const ticketSchema = new Schema({
     date: { type: Number, default: Date.now() },
 });
 
-export const Vehicle = model("Vehicles", vehicleSchema);
+export const vehicle = model("Vehicles", vehicleSchema);
 
 export const ticket = model("Tickets", ticketSchema);

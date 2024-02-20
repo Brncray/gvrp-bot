@@ -1,5 +1,4 @@
 import { Message } from "discord.js";
-import Config from "../schemas/config_schema.js";
 
 /**@type {import("../bot.js").Command} */
 export const data = {

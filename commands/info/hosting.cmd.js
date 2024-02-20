@@ -1,6 +1,5 @@
 /**@type {import("../bot.js").Command} */
 
-import Profile from "../schemas/profile_schema.js";
 
 export const data = {
   name: "hosting-instructions",
