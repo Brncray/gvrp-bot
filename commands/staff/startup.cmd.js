@@ -51,6 +51,7 @@ export async function execute(interaction, client) {
   let sending = await interaction.editReply({
     content: "@everyone",
     embeds: response,
+    allowedMentions: { parse: ["users", "roles", "everyone"] },
   });
   await sending.react('👍');
   

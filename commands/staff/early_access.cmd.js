@@ -34,6 +34,7 @@ export async function execute(interaction, client) {
   await interaction.channel?.send({
     content: "@everyone",
     embeds: response,
+    allowedMentions: { parse: ["users", "roles", "everyone"] },
   })
   await interaction.deleteReply();
 }
