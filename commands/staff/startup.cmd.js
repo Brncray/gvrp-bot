@@ -34,7 +34,7 @@ export async function execute(interaction, client) {
   const response = [
     {
       title: "Session Startup",
-      description: `<@${interaction.member.id}> is hosting a session! ${reactions} reactions are required to start the session.`,
+      description: `<@${interaction.member.id}> is hosting a session! Before joining please read all information and rules in <#1128821529522753547>\n\n${reactions}+ reactions requried to start`,
       color: client.settings.color,
     },
   ];
@@ -46,11 +46,7 @@ export async function execute(interaction, client) {
       color: 0x00ffff,
     },
   ];
-  var resp = await Config.findOne({ config:"config"});
-  if (resp == null) return await interaction.editReply({content:"An error has occured. Failure to connect to database", ephemeral: true})
-  const channel = await client.channels.cache.get(resp['log_channel']); // get the channel from the cache
 
-  channel.send({ embeds: log }); // send the report to the logs channel
 
   let sending = await interaction.editReply({
     content: "@.everyone",

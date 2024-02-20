@@ -1,7 +1,6 @@
 import { Message } from "discord.js";
 import { ContextMenuCommandBuilder, ApplicationCommandType } from "discord.js";
-import Profile from "../schemas/profile_schema.js";
-import Config from "../schemas/config_schema.js";
+
 
 
 /**@type {import("../bot.js").Command} */
@@ -20,16 +19,8 @@ export async function execute(interaction, client) {
   const message = interaction.options.getMessage("message"); // get the message that was right clicked
   const messageContent = message.content; // get the content of the message
   const author = message.author; // author of the reported message
-  var resp = await Config.findOne({ config: "config"});
-  const channel = await client.channels.cache.get(resp['reports_channel']); // get the channel from the cache
+  const channel = client.channels.cache.get(client.settings.reports_channel); // get the channel from the cache
   const user = interaction.user; // get the user who reported the message
-
-  var resp = await Profile.findOne({ user_id: user.id });
-  if (resp["blacklisted"] == true)
-    return await interaction.reply({
-      content: "You are blacklisted from using this command",
-      ephemeral: true,
-    }); // check if the user is blacklisted from using the command
 
   /**@type {import("discord.js").APIEmbed[]} */
   const response = [

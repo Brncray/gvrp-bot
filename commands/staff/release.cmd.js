@@ -52,7 +52,7 @@ export async function execute(interaction, client) {
   const resp_embed = [
     {
       title: "Session Release",
-      description: `Peacetime: **${pt}**\nFRP Speeds: **${frp}**\n\nKick = Infraction\n\nRead all server information before joining, all rules are strictly enforced.`,
+      description: `Please be sure to follow all rules in this session, failure to do so will result in a mark.\n\nPeacetime: ${pt}\nFRP Speeds: ${frp}\n\n\nSession link: ${link}`,
       color: client.settings.color,
     },
   ];

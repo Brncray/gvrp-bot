@@ -127,6 +127,7 @@ export class Bot extends Client {
             regular: 0,
             special: 0
         },
+        
     };
 
     /**@type {Collection<string, CommandData>} */

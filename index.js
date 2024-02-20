@@ -17,6 +17,7 @@ config();
             regular: 6,
             special: 8
         },
+        reports_channel: '1209293485862293524'
     };
     await client.init();
 })();
