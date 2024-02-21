@@ -203,7 +203,7 @@ export class Bot extends Client {
         await this.handleButtons();
         await this.handleSelects();
         await this.login(process.env.token);
-        await connect(process.env.mongo || "")
+        await connect(process.env.mongo || "gvrp")
             .then(() => {
                 console.log("Connected to MongoDB");
             })

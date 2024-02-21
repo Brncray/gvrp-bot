@@ -22,10 +22,7 @@ export async function execute(interaction, client) {
     }
   } else if (interaction.isButton()) {
     let button =
-      client.buttons.get(interaction.customId) ||
-      (client.settings.departments.has(interaction.customId)
-        ? client.buttons.get("role_link")
-        : undefined);
+      client.buttons.get(interaction.customId)
 
     if (!button) return;
     try {

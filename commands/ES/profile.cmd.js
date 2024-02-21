@@ -1,4 +1,4 @@
-import { vehicle, ticket } from "../../data/mongodb.js"; 
+import { vehicle, ticket } from "../../data/mongodb.js";
 
 /**@type {import("../bot.js").Command} */
 export const data = {
@@ -15,7 +15,7 @@ export const data = {
     },
   ],
   dm_permission: false,
-  default_member_permissions: 0, 
+  default_member_permissions: 0,
 };
 /**
  *
@@ -23,7 +23,7 @@ export const data = {
  * @param {import("../bot.js").Bot} client
  */
 export async function execute(interaction, client) {
-  await interaction.deferReply({ ephemeral: false }); 
+  await interaction.deferReply({ ephemeral: false });
   if (interaction.options.get("user") == null) {
     var user = interaction.user;
   } else if (interaction.options.get("user") != null) {
@@ -33,7 +33,7 @@ export async function execute(interaction, client) {
   if (user.bot) {
     return interaction.editReply({
       content: "You cannot view a bot's profile.",
-    })
+    });
   }
   const vehicles = await vehicle.find({ ownerId: user.id });
   const tickets = await ticket.find({ recipient: user.id });
@@ -58,8 +58,6 @@ export async function execute(interaction, client) {
     },
   ];
 
-
-
   const r = [
     {
       type: 1,
@@ -71,8 +69,7 @@ export async function execute(interaction, client) {
           style: 1,
           custom_id: "registered_vehicles",
         },
-        { label: "Citations", type: 2, style: 1, custom_id: "citations" },
-        { label: "Modlogs", type:2, style:1, custom_id: "modlogs" }
+        { label: "Citations", type: 2, style: 1, custom_id: "citations" }
       ],
     },
   ];
@@ -81,7 +78,73 @@ export async function execute(interaction, client) {
     embeds: response,
     components: r,
   });
+
+  const collector = interaction.channel.createMessageComponentCollector({
+    filter: (componentInteraction) =>
+      componentInteraction.user.id === interaction.user.id,
+    time: 30000,
+  });
+
+  collector.on("collect", async (componentInteraction) => {
+    if (componentInteraction.customId === "citations") {
+      const tickets = await ticket.find({ recipient: user.id });
+      /**@type {import("discord.js").APIEmbed[]} */
+      var response = [
+        {
+          title: `${user.username}'s Citations`,
+          color: client.settings.color,
+        },
+      ];
+
+      if (tickets.length == 0) {
+        response.description = "No Citations";
+        return await componentInteraction.update({ embeds: response });
+      } else {
+        /**@type {import("discord.js").APIEmbed[]} */
+        var response = [
+          {
+            title: `${user.username}'s Citations`,
+            color: client.settings.color,
+          },
+        ];
+        response[0].fields = tickets.map((t) => ({
+          name: "Ticket",
+          value: `**Reason:** ${t.charges}\n**Fine:** ${t.fine}\n**Officer:** ${
+            t.officer
+          }\n**Case Number:** ${t.case}\n**Date:** <t:${Math.trunc(t.date / 1000)}:D>\n\n`,
+          inline: false,
+        }));
+        return await componentInteraction.reply({ embeds: response, ephemeral: true });
+
+      }
+    }
+    if (componentInteraction.customId == "registered_vehicles") {
+      const vehicles = await vehicle.find({ ownerId: user.id });
+      if (vehicles.length == 0) {
+        return await componentInteraction.update({
+          content: "No registered vehicles.",
+          ephemeral: true,
+        });
+      }
+      /**@type {import("discord.js").APIEmbed[]} */
+      var response = [
+        {
+          title: `${user.username}'s Vehicles`,
+          color: client.settings.color,
+        },
+      ];
+      response[0].fields = vehicles.map((v) => ({
+        name: "Vehicle",
+        value: `**Vehicle:** ${v.vehicle}\n**Color:** ${v.color}\n**License Plate:** ${v.licensePlate}\n**ID:** ${v.vehicleId}\n**Date Registered:** <t:${Math.trunc(v.date / 1000)}:D>\n\n`,
+        inline: false,
+      }));
+      return await componentInteraction.reply({ embeds: response, ephemeral: true });
+    }
+  });
   
-  
-  
+  collector.on("end", async (collected, reason) => {
+    if (reason == "time") {
+      interaction.deleteReply();
+    }
+  });
 }
