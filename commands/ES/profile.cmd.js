@@ -41,7 +41,7 @@ export async function execute(interaction, client) {
   /**@type {import("discord.js").APIEmbed[]} */
   const response = [
     {
-      title: `${user.username} Profile`,
+      title: `${user.username}'s Profile`,
       fields: [
         {
           name: "Citations",
@@ -74,18 +74,21 @@ export async function execute(interaction, client) {
     },
   ];
 
-  interaction.editReply({
+
+  const message = interaction.editReply({
     embeds: response,
     components: r,
   });
 
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = (await message).createMessageComponentCollector({
     filter: (componentInteraction) =>
       componentInteraction.user.id === interaction.user.id,
     time: 30000,
   });
 
   collector.on("collect", async (componentInteraction) => {
+    await componentInteraction.deferReply({ ephemeral: true});
+    
     if (componentInteraction.customId === "citations") {
       const tickets = await ticket.find({ recipient: user.id });
       /**@type {import("discord.js").APIEmbed[]} */
@@ -98,7 +101,7 @@ export async function execute(interaction, client) {
 
       if (tickets.length == 0) {
         response.description = "No Citations";
-        return await componentInteraction.update({ embeds: response });
+        return await componentInteraction.editReply({ embeds: response, ephemeral: true});
       } else {
         /**@type {import("discord.js").APIEmbed[]} */
         var response = [
@@ -114,14 +117,14 @@ export async function execute(interaction, client) {
           }\n**Case Number:** ${t.case}\n**Date:** <t:${Math.trunc(t.date / 1000)}:D>\n\n`,
           inline: false,
         }));
-        return await componentInteraction.reply({ embeds: response, ephemeral: true });
+        return await componentInteraction.editReply({ embeds: response, ephemeral: true });
 
       }
     }
     if (componentInteraction.customId == "registered_vehicles") {
       const vehicles = await vehicle.find({ ownerId: user.id });
       if (vehicles.length == 0) {
-        return await componentInteraction.update({
+        return await componentInteraction.editReply({
           content: "No registered vehicles.",
           ephemeral: true,
         });
@@ -138,7 +141,7 @@ export async function execute(interaction, client) {
         value: `**Vehicle:** ${v.vehicle}\n**Color:** ${v.color}\n**License Plate:** ${v.licensePlate}\n**ID:** ${v.vehicleId}\n**Date Registered:** <t:${Math.trunc(v.date / 1000)}:D>\n\n`,
         inline: false,
       }));
-      return await componentInteraction.reply({ embeds: response, ephemeral: true });
+      return await componentInteraction.editReply({ embeds: response, ephemeral: true });
     }
   });
   
