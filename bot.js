@@ -202,8 +202,8 @@ export class Bot extends Client {
         await this.handleEvents();
         await this.handleButtons();
         await this.handleSelects();
-        await this.login(process.env.token);
-        await connect(process.env.mongo || "gvrp")
+        await this.login(process.env['token']);
+        await connect(process.env['mongo'] || "")
             .then(() => {
                 console.log("Connected to MongoDB");
             })

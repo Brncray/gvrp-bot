@@ -63,13 +63,14 @@ export async function execute(interaction, client) {
       type: 1,
       /**@type {import("discord.js").APIButtonComponent[]} */
       components: [
+        { label: "Citations", type: 2, style: 1, custom_id: "citations" },
         {
           label: "Registered Vehicles",
           type: 2,
           style: 1,
           custom_id: "registered_vehicles",
-        },
-        { label: "Citations", type: 2, style: 1, custom_id: "citations" }
+        }
+        
       ],
     },
   ];
@@ -137,7 +138,7 @@ export async function execute(interaction, client) {
         },
       ];
       response[0].fields = vehicles.map((v) => ({
-        name: "Vehicle",
+        name: "REGISTERED VEHICLE",
         value: `**Vehicle:** ${v.vehicle}\n**Color:** ${v.color}\n**License Plate:** ${v.licensePlate}\n**ID:** ${v.vehicleId}\n**Date Registered:** <t:${Math.trunc(v.date / 1000)}:D>\n\n`,
         inline: false,
       }));

@@ -19,7 +19,8 @@ config();
         },
         reports_channel: '1209293485862293524',
         guild_id: `965820805592272947`,
-        unbtoken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfaWQiOiIxMjA2NjU5MzE5MDk4MTE3MjcxIiwiaWF0IjoxNzA3NzYwNDAwfQ.A3Vmf_95_pNFNnhz4Us4Jq1t0ziNtyRL89ZXpvqhxYQ`
+        unbtoken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfaWQiOiIxMjA2NjU5MzE5MDk4MTE3MjcxIiwiaWF0IjoxNzA3NzYwNDAwfQ.A3Vmf_95_pNFNnhz4Us4Jq1t0ziNtyRL89ZXpvqhxYQ`,
+        db_name: `gvrp`
     };
     await client.init();
 })();

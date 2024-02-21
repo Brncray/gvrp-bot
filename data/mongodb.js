@@ -18,6 +18,17 @@ const ticketSchema = new Schema({
     date: { type: Number, default: Date.now() },
 });
 
+const modLog = new Schema({
+  recipient: { type: String, required: true },
+  moderator: { type: String, required: true },
+  type: { type: String, required: true },
+  reason: { type: String, required: true },
+  evidence: { type: String, required: true },
+  date: { type: Number, default: Date.now() },
+})
+
+export const modlog = model("modLog", modLog);
+
 export const vehicle = model("Vehicles", vehicleSchema);
 
 export const ticket = model("Tickets", ticketSchema);
