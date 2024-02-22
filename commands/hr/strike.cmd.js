@@ -75,4 +75,5 @@ export async function execute(interaction, client) {
   await client.users.send(user.id, {
     embeds: response,
   })
+
 }
