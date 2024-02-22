@@ -5,6 +5,8 @@ export const data = {
  * @param {import("discord.js").ChatInputCommandInteraction<"cached">|import("discord.js").ButtonInteraction<"cached">|import("discord.js").AutocompleteInteraction<"cached">|import("discord.js").SelectMenuInteraction<"cached">|import("discord.js").ModalSubmitInteraction<"cached">|import("discord.js").MessageContextMenuCommandInteraction<"cached">|import("discord.js").UserContextMenuCommandInteraction} interaction
  * @param {import("../bot.js").Bot} client
  */
+
+
 export async function execute(interaction, client) {
   if (interaction.isCommand()) {
     const command = client.cmds.get(interaction.commandName);
@@ -20,6 +22,29 @@ export async function execute(interaction, client) {
         content: "There was an error while executing this command!",
       });
     }
+
+
+    const channel = client.channels.cache.get(client.settings.log_channel); // get the channel from the ca
+    const optionsData = interaction.options.data || [];
+
+// Construct options list string
+    let optionsList = "";
+    optionsData.forEach(option => {
+      // Check if the option is a user
+      if (option.type === 'USER') {
+        optionsList += `${option.name}: <@${option.value}>\n`;
+      } else {
+        optionsList += `${option.name}: ${option.value}\n`;
+      }
+    });
+
+    const response = [
+      {
+        title: "Command Used",
+        description: `**Command:** ${interaction.commandName}\n**User:** ${interaction.user}\n**Options:**\n${optionsList}**Date:** ${new Date().toLocaleString()}`,
+      }
+    ]
+    channel.send({ embeds: response})
   } else if (interaction.isButton()) {
     let button =
       client.buttons.get(interaction.customId)
