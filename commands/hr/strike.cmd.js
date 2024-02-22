@@ -38,6 +38,7 @@ export async function execute(interaction, client) {
   var user = interaction.options.get("user").user;  
   const reason = interaction.options.getString("reason");
   const evidence = interaction.options.getString("evidence");
+  const count = await modlog.countDocuments({});
   
   /**@type {import("discord.js").APIEmbed[]} */
   const response = [
@@ -63,6 +64,7 @@ export async function execute(interaction, client) {
     type: "Staff Strike",
     reason: reason,
     evidence: evidence,
+    case: count + 1,
   })
   modlog_save.save();
   

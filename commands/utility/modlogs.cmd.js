@@ -39,7 +39,7 @@ export async function execute(interaction, client) {
     return await interaction.editReply({ embeds: response, ephemeral: true });
   } else {
     response[0].fields = modlogs.map((t) => ({
-      name: `Type: ${t.type}`,
+      name: `Type: ${t.type} | Case ${t.case}`,
       value: `**User:** <@${t.recipient}>\n**Moderator:** <@${t.moderator}>\n**Reason: ** ${t.reason}\n**Evidence:** ${t.evidence} \n**Date:** <t:${Math.trunc(
         t.date / 1000,
       )}:D>\n\n`,

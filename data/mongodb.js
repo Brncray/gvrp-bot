@@ -24,6 +24,7 @@ const modLog = new Schema({
   type: { type: String, required: true },
   reason: { type: String, required: true },
   evidence: { type: String, required: true },
+  case: { type: Number, default: null},
   date: { type: Number, default: Date.now() },
 })
 

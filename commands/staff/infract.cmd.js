@@ -38,12 +38,13 @@ export async function execute(interaction, client) {
   var user = interaction.options.get("user").user;  
   const reason = interaction.options.getString("reason");
   const evidence = interaction.options.getString("evidence");
+  const count = await modlog.countDocuments({});
 
   /**@type {import("discord.js").APIEmbed[]} */
   const response = [
     {
       title: "Infraction",
-      description: `\n> Hello ${user}. You have been given an infraction by <@${interaction.user.id}>.\n\n> Reason: ${reason}\n> Evidence: ${evidence}`,
+      description: `\n> Hello ${user}, you have received an infraction within Greenville Roleplay Community for \`\`${reason}\`\`. \n\n > Evidence: \`\`${evidence}\`\` \n\n> Signed, ${interaction.user}.`,
       color: client.settings.color,
     },
   ];
@@ -63,6 +64,7 @@ export async function execute(interaction, client) {
     type: "Infraction",
     reason: reason,
     evidence: evidence,
+    case: count + 1,
   })
   modlog_save.save();
 
