@@ -97,6 +97,7 @@ const { connect } = pkg;
  * @prop {Boolean} [nsfw]
  * @prop {function(import("discord.js").ChatInputCommandInteraction<"cached">,Bot): Promise<any>} execute
  */
+const mCM = new Map();
 
 export class Bot extends Client {
     /**
@@ -138,6 +139,50 @@ export class Bot extends Client {
 
     /**@type {Collection<string, SelectMenuData>} */
     selectMenus = new Collection();
+
+  raw = this.on('raw', async (packet) => {
+      const logChannel = this.channels.cache.get('1206032259400998972');
+
+
+      /**@type {import("discord.js").APIEmbed} */
+      const e = {
+          color: this.settings.color
+      };
+
+      //setInterval(clean, 60 * 60 * 1000); 
+
+      try {
+          switch (packet.t) {
+              case 'MESSAGE_CREATE': {
+                  const { id, content } = packet.d;
+                  mCM.set(id, content, Date.now());
+                  console.log(`Stored ${id} in mCM`);
+                  break;
+              }
+              case 'MESSAGE_UPDATE': {
+                  const { id, content } = packet.d; 
+                  const originalContent = mCM.get(id);
+                  if (!originalContent !== undefined){
+                      e.description = `**Message Edited in**<#${packet.d.channel_id}> [Jump to message](https://discord.com/channels/${packet.d.guild_id}/${packet.d.channel_id}/${id})`;
+                      e.fields = [
+                          { name: 'Before', value: originalContent },
+                          { name: 'After', value: content },
+                      ];
+                      e.author = { name: packet.d.author.username, icon_url: `https://cdn.discordapp.com/avatars/${packet.d.author.id}/${packet.d.author.avatar}.png` };
+                      e.footer = { text: `User ID: ${packet.d.author.id}` };
+                      await logChannel.send({ embeds: [e] });
+
+                  } 
+                  break; 
+              }
+
+          }
+      } catch(error) {
+          console.error(`Error in raw event handler: ${error.message}`);
+      }
+
+  }); 
+
 
     /**
      * @param {string} p
