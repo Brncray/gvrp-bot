@@ -166,7 +166,7 @@ export async function execute(interaction, client) {
   } else if (selectedBanType === "appealable") {
     type = "Appealable Ban";
   }
-  let caseNumber = modlog.countDocuments() + 1;
+  const count = await modlog.countDocuments({});
 
   try {
     const m = new modlog({
@@ -175,7 +175,7 @@ export async function execute(interaction, client) {
         type: type,
         reason: BanReason,
         evidence: evidenceURL,
-        case: caseNumber
+        case: count + 1 
     });
 
     await m.save();
