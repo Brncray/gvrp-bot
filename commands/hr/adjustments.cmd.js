@@ -185,6 +185,31 @@ export const data = {
                     type: 3,
                 }
             ]
+        },
+        {
+            name: 'suspension',
+            description: 'Suspend a staff member',
+            type: 1,
+            options: [
+                {
+                    name: 'staff',
+                    description: 'What staff member would you like to suspend?',
+                    required: true,
+                    type: 6
+                },
+                {
+                    name: 'rank',
+                    description: 'What rank are you?',
+                    required: true,
+                    type: 3
+                },
+                {
+                    name: 'reason',
+                    description: 'What is the reason for suspension?',
+                    required: true,
+                    type: 3
+                }
+            ]
         }
     ],
     dm_permission: false,
@@ -222,9 +247,27 @@ export async function execute(interaction, client) {
         case "staff-resignation":
             await staff_resignation(interaction, client);
             break;
+        case "suspension":
+            await suspension(interaction, client);
+            break;
     }
 }
 
+
+async function suspension(interaction, client) {
+    const channel = client.channels.cache.get(client.settings.adjustments);
+    const staff = interaction.options.getUser("staff");
+    const rank = interaction.options.getString("rank");
+    const reason = interaction.options.getString("reason");
+
+    const response = `**__Staff Suspension__**\n\n${staff} has been placed under staff suspension due to ${reason}.\n\n**Date:** <t:${Math.trunc(Date.now() / 1000)}:D>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
+
+    channel.send({ content: response});
+    await interaction.editReply({
+        content: "Sent."
+    })
+    await interaction.deleteReply()
+}
 
 async function adjustment(interaction, client) {
 
