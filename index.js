@@ -21,7 +21,7 @@ config();
         guild_id: `965820805592272947`,
         unbtoken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfaWQiOiIxMjA2NjU5MzE5MDk4MTE3MjcxIiwiaWF0IjoxNzA3NzYwNDAwfQ.A3Vmf_95_pNFNnhz4Us4Jq1t0ziNtyRL89ZXpvqhxYQ`,
         db_name: `gvrp`,
-        adjustments: `1190338790162706503`,
+        adjustments: `1225263947569959074`,
         log_channel: `1210346184997077123`
     };
     await client.init();

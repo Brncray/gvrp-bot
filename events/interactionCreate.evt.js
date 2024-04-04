@@ -24,27 +24,6 @@ export async function execute(interaction, client) {
     }
 
 
-    const channel = client.channels.cache.get(client.settings.log_channel); // get the channel from the ca
-    const optionsData = interaction.options.data || [];
-
-// Construct options list string
-    let optionsList = "";
-    optionsData.forEach(option => {
-      // Check if the option is a user
-      if (option.type === 'USER') {
-        optionsList += `${option.name}: <@${option.value}>\n`;
-      } else {
-        optionsList += `${option.name}: ${option.value}\n`;
-      }
-    });
-
-    const response = [
-      {
-        title: "Command Used",
-        description: `**Command:** ${interaction.commandName}\n**User:** ${interaction.user}\n**Options:**\n${optionsList}**Date:** ${new Date().toLocaleString()}`,
-      }
-    ]
-    channel.send({ embeds: response})
   } else if (interaction.isButton()) {
     let button =
       client.buttons.get(interaction.customId)

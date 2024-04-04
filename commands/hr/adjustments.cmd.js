@@ -232,7 +232,7 @@ async function adjustment(interaction, client) {
     const adjustment = interaction.options.getString("adjustment");
     const rank = interaction.options.getString("rank");
 
-    const response = "**__Server Adjustment__**\n\n> " + adjustment + `\n\n**Date:** ${new Date().toLocaleString()}\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`;
+    const response = "**__Server Adjustment__**\n\n> " + adjustment + `\n\n**Date:** <t:${Math.trunc(Date.now() / 1000)}:D>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`;
 
     channel.send({ content: response});
     await interaction.editReply({
@@ -249,7 +249,7 @@ async function server_blacklist(interaction, client) {
 
     const response = `**__Server Blacklist__**
 
-> ${server} has been blacklisted from all Greenville Community partnerships and fastpasses. The reasoning for this blacklist is ${reason}\n\n**Date:** <t:${Date.now()}:f>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
+> ${server} has been blacklisted from all Greenville Community partnerships and fastpasses. The reasoning for this blacklist is ${reason}\n\n**Date:** <t:${Math.trunc(Date.now() / 1000)}:D>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
     channel.send({ content: response});
     await interaction.editReply({
         content: "Sent."
@@ -262,7 +262,7 @@ async function staff_handpick(interaction, client) {
     const staff_rank = interaction.options.getString("staff-rank");
     const rank = interaction.options.getString("rank");
 
-    const response = `**__Staff Handpick__**\n\n${staff}has been handpicked onto the Greenville Community Roleplay Staff Team as ${staff_rank}. The High-Command Team finds this user fit for this position due to past and/or previous experience.\n\n**Date:** <t:${Date.now()}:f>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
+    const response = `**__Staff Handpick__**\n\n${staff}has been handpicked onto the Greenville Community Roleplay Staff Team as ${staff_rank}. The High-Command Team finds this user fit for this position due to past and/or previous experience.\n\n**Date:**<t:${Math.trunc(Date.now() / 1000)}:D>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
 
     channel.send({ content: response});
     await interaction.editReply({
@@ -276,7 +276,7 @@ async function staff_termination(interaction, client) {
     const rank = interaction.options.getString("rank");
     const reason = interaction.options.getString("reason");
 
-    const response = `**__Staff Termination__**\n\n${staff} has been terminated from the Greenville Community Roleplay Staff Team. The reasoning for this termination is ${reason}\n\n**Date:** <t:${Date.now()}:f>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
+    const response = `**__Staff Termination__**\n\n${staff} has been terminated from the Greenville Community Roleplay Staff Team. The reasoning for this termination is ${reason}\n\n**Date:** <t:${Math.trunc(Date.now() / 1000)}:D>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
 
     channel.send({ content: response});
     await interaction.editReply({
@@ -291,7 +291,7 @@ async function staff_promotion(interaction, client) {
     const after = interaction.options.getString("after-rank");
     const rank = interaction.options.getString("rank");
 
-    const response = `**__Staff Promotion__**\n\n${staff} has been promoted to **${after} from ${before}**. The High-Command Team believe this user meets our expectations to move forward to this rank.\n\n**Date:** <t:${Date.now()}:f>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
+    const response = `**__Staff Promotion__**\n\n${staff} has been promoted to **${after} from ${before}**. The High-Command Team believe this user meets our expectations to move forward to this rank.\n\n**Date:** <t:${Math.trunc(Date.now() / 1000)}:D>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
 
     channel.send({ content: response});
     await interaction.editReply({
@@ -307,7 +307,7 @@ async function staff_demotion(interaction, client) {
     const rank = interaction.options.getString("rank");
     const reason = interaction.options.getString("reason");
 
-    const response = `**__Staff Promotion__**\n\n${staff} has been demoted from **${before} to ${after}**. This user has been demoted due to ${reason}\n\n**Date:** <t:${Date.now()}:f>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
+    const response = `**__Staff Promotion__**\n\n${staff} has been demoted from **${before} to ${after}**. This user has been demoted due to ${reason}\n\n**Date:** <t:${Math.trunc(Date.now() / 1000)}:D>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
 
     channel.send({ content: response});
     await interaction.editReply({
@@ -321,7 +321,7 @@ async function staff_resignation(interaction, client) {
     const staff = interaction.options.getUser("staff");
     const rank = interaction.options.getString("rank");
 
-    const response = `**__Staff Resignation__**\n\n${staff} has resigned from the Greenville Community Roleplay Staff Team. We wish this user the best of luck in their future endeavors.\n\n**Date:** <t:${Date.now()}:f>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
+    const response = `**__Staff Resignation__**\n\n${staff} has resigned from the Greenville Community Roleplay Staff Team. We wish this user the best of luck in their future endeavors.\n\n**Date:** <t:${Math.trunc(Date.now() / 1000)}:D>\n\n*Signed,*\n***${rank}, ${interaction.user.tag}***`
 
     channel.send({ content: response});
     await interaction.editReply({
