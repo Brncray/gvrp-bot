@@ -201,8 +201,9 @@ export async function execute(interaction, client) {
   try {
     const BanUser = interaction.options.getUser("user");
     //await interaction.guild.members.ban(BanUser, { reason: BanReason });
+    try {
     await BanUser.send({ embeds: [embeds], components: rows });
-    if (error instanceof DiscordAPIError && error.code === 50007) {
+    } catch (error) {
       eE[0].description = `${BanUser}'s DMs are disabled, actions still processed.`;
       await interaction.followUp({ embeds: eE, ephemeral: true });
     }
