@@ -38,6 +38,8 @@ export const data = {
  */
 export async function execute(interaction, client) {
   await interaction.deferReply({ ephemeral: true });
+  if(!interaction.member.roles.cache.has(client.settings.emergency_role)) return await interaction.editReply({ content: "You do not have permission to use this command. If you are a LEO this means you do not have the ``Emergency Services`` role", ephemeral: true });
+
   const user = interaction.options.get("user").user;
   if (user.bot) {
     return interaction.editReply({

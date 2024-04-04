@@ -22,7 +22,10 @@ config();
         unbtoken: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBfaWQiOiIxMjA2NjU5MzE5MDk4MTE3MjcxIiwiaWF0IjoxNzA3NzYwNDAwfQ.A3Vmf_95_pNFNnhz4Us4Jq1t0ziNtyRL89ZXpvqhxYQ`,
         db_name: `gvrp`,
         adjustments: `1225263947569959074`,
-        log_channel: `1210346184997077123`
+        log_channel: `1210346184997077123`,
+        staff_role: `1190338623200051371`,
+        emergency_role: `1225459912318910585`,
+        admin_role: `1193280442573525022`
     };
     await client.init();
 })();

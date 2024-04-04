@@ -223,6 +223,7 @@ export const data = {
  */
 export async function execute(interaction, client) {
     await interaction.deferReply({ ephemeral: true });
+    if (!interaction.member.permissions.has("Administrator")) return await interaction.editReply({ content: "You do not have permission to use this command. If you are a staff member this means you do not have the ``Administrator`` permission", ephemeral: true });
     const cmd = interaction.options.getSubcommand();
 
     switch(cmd){
