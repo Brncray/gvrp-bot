@@ -200,7 +200,7 @@ export async function execute(interaction, client) {
 
   try {
     const BanUser = interaction.options.getUser("user");
-    //await interaction.guild.members.ban(BanUser, { reason: BanReason });
+    await interaction.guild.members.ban(BanUser, { reason: BanReason });
     try {
     await BanUser.send({ embeds: [embeds], components: rows });
     } catch (error) {
